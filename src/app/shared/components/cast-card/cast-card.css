@@ -1,0 +1,38 @@
+.cast-card {
+  width: 140px;
+  flex: 0 0 auto;
+  background-color: var(--bg-accent, #1a1a1a);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+.cast-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.5);
+}
+.cast-image {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  background-color: #333;
+}
+.cast-info {
+  padding: 0.75rem;
+}
+.cast-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main, #ffffff);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cast-character {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

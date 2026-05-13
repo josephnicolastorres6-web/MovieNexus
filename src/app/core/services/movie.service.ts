@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { MovieResponse, Movie } from '../models/movie.model';
+import { CreditsResponse } from '../models/cast.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class MovieService {
 
   getMovieById(id: string | number): Observable<Movie> {
     return this.http.get<Movie>(`${this.apiUrl}/movie/${id}`);
+  }
+
+  getMovieCredits(id: string | number): Observable<CreditsResponse> {
+    return this.http.get<CreditsResponse>(`${this.apiUrl}/movie/${id}/credits`);
   }
 }
