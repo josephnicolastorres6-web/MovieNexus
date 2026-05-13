@@ -9,13 +9,16 @@
     </nav>
   </header>
 
-  <main class="hero">
-    <h1 class="hero-title">
-      Bienvenido a <span class="text-primary">Movie</span><span class="text-accent">Nexus</span>
-    </h1>
-    <p class="hero-description">
-      Explora las películas más populares, busca tus favoritas y mantente al día con los últimos estrenos.
-    </p>
-    <button class="btn-premium">Empezar a Explorar</button>
+  <main>
+    @if (featuredMovie(); as movie) {
+      <app-hero [movie]="movie"></app-hero>
+    } @else {
+      <div class="loading-hero">Cargando...</div>
+    }
+
+    <div class="home-sections">
+      <app-movie-slider title="Tendencias de Hoy" [movies]="trendingMovies()"></app-movie-slider>
+      <app-movie-slider title="Las más Populares" [movies]="popularMovies()"></app-movie-slider>
+    </div>
   </main>
 </div>

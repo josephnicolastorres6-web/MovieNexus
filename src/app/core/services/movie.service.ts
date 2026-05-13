@@ -14,4 +14,8 @@ export class MovieService {
   getTrendingMovies(): Observable<MovieResponse> {
     return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`);
   }
+
+  getPopularMovies(): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`);
+  }
 }
