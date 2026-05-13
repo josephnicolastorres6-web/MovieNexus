@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CastMember } from '../../../../core/models/cast.model';
+import { CastMember } from '../../../core/models/cast.model';
 
 @Component({
   selector: 'app-cast-card',
