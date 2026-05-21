@@ -5,7 +5,7 @@
     @if (featuredMovie(); as movie) {
       <app-hero [movie]="movie"></app-hero>
     } @else {
-      <div class="loading-hero">Cargando...</div>
+      <app-skeleton-hero></app-skeleton-hero>
     }
 
     <div class="home-sections">
@@ -16,8 +16,14 @@
     <section class="catalog-section">
       <h2 class="section-title" style="padding: 0 4%; margin-bottom: 1.5rem; color: white;">Explorar Catálogo</h2>
       <div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; padding: 0 4%;">
-        @for (movie of catalogMovies(); track movie.id) {
-          <app-movie-card [movie]="movie"></app-movie-card>
+        @if (catalogMovies().length > 0) {
+          @for (movie of catalogMovies(); track movie.id) {
+            <app-movie-card [movie]="movie"></app-movie-card>
+          }
+        } @else {
+          @for (dummy of [1,2,3,4,5,6,7,8,9,10]; track dummy) {
+            <app-skeleton-card></app-skeleton-card>
+          }
         }
       </div>
 

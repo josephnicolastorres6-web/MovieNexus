@@ -4,11 +4,20 @@ import { MovieService } from '../../core/services/movie.service';
 import { HeroComponent } from './components/hero/hero.component';
 import { MovieSliderComponent } from '../../shared/components/movie-slider/movie-slider.component';
 import { MovieCardComponent } from '../../shared/components/movie-card/movie-card.component';
+import { SkeletonHeroComponent } from '../../shared/components/skeleton-hero/skeleton-hero.component';
+import { SkeletonCardComponent } from '../../shared/components/skeleton-card/skeleton-card.component';
 import { Movie } from '../../core/models/movie.model';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, HeroComponent, MovieSliderComponent, MovieCardComponent],
+  imports: [
+    CommonModule,
+    HeroComponent,
+    MovieSliderComponent,
+    MovieCardComponent,
+    SkeletonHeroComponent,
+    SkeletonCardComponent
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
