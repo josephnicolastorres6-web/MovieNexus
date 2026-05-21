@@ -6,11 +6,12 @@ import { CreditsResponse } from '../../core/models/cast.model';
 import { CastCard } from '../../shared/components/cast-card/cast-card';
 import { MovieTrailer } from './components/movie-trailer/movie-trailer';
 import { Observable, forkJoin } from 'rxjs';
+import { SkeletonHeroComponent } from '../../shared/components/skeleton-hero/skeleton-hero.component';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [CommonModule, CastCard, MovieTrailer],
+  imports: [CommonModule, CastCard, MovieTrailer, SkeletonHeroComponent],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css'
 })
