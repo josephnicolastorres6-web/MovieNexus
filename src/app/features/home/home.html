@@ -12,5 +12,21 @@
       <app-movie-slider title="Tendencias de Hoy" [movies]="trendingMovies()"></app-movie-slider>
       <app-movie-slider title="Las más Populares" [movies]="popularMovies()"></app-movie-slider>
     </div>
+
+    <section class="catalog-section">
+      <h2 class="section-title" style="padding: 0 4%; margin-bottom: 1.5rem; color: white;">Explorar Catálogo</h2>
+      <div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; padding: 0 4%;">
+        @for (movie of catalogMovies(); track movie.id) {
+          <app-movie-card [movie]="movie"></app-movie-card>
+        }
+      </div>
+
+      <div #infiniteAnchor class="infinite-anchor" style="padding: 2rem; text-align: center; color: var(--text-main);">
+        @if (isFetchingNextPage()) {
+          <div class="infinite-spinner" style="width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+          <span>Cargando más películas...</span>
+        }
+      </div>
+    </section>
   </main>
 </div>

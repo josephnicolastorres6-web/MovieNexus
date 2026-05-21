@@ -16,8 +16,10 @@ export class MovieService {
     return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`);
   }
 
-  getPopularMovies(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`);
+  getPopularMovies(page: number = 1): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`, {
+      params: { page: page.toString() }
+    });
   }
 
   getMovieById(id: string | number): Observable<Movie> {
@@ -32,5 +34,11 @@ export class MovieService {
     return this.http.get<MovieResponse>(`${this.apiUrl}/search/movie`, {
       params: { query }
     });
+  }
+
+  getMovieVideos(id: string | number) {
+    return this.http.get<{ results: Array<{key: string; site: string; type: string; name: string}> }>(
+      `${this.apiUrl}/movie/${id}/videos`
+    );
   }
 }

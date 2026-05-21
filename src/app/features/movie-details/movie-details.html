@@ -18,16 +18,35 @@
 
       <p class="overview">{{ data.details.overview }}</p>
       
-      <div class="cast-section">
-        <h3 class="section-title">Elenco Principal</h3>
-        <div class="cast-track">
-          @for (actor of data.credits.cast | slice:0:15; track actor.id) {
-            <app-cast-card [actor]="actor"></app-cast-card>
-          } @empty {
-            <p>No hay información del elenco.</p>
-          }
-        </div>
-      </div>
+      <section class="trailer-section">
+        <h2>Tráiler Oficial</h2>
+        @defer (on viewport) {
+          <app-movie-trailer [movieId]="data.details.id"></app-movie-trailer>
+        } @placeholder (minimum 500ms) {
+          <div class="trailer-placeholder"><p>Haz scroll para ver el tráiler...</p></div>
+        } @loading {
+          <div class="defer-spinner">Cargando reproductor...</div>
+        } @error {
+          <p class="defer-error">Error al cargar el reproductor de video.</p>
+        }
+      </section>
+
+      <section class="movie-cast">
+        <h2>Elenco Principal</h2>
+        @defer (on viewport) {
+          <div class="cast-track">
+            @for (actor of data.credits.cast | slice:0:15; track actor.id) {
+              <app-cast-card [actor]="actor"></app-cast-card>
+            } @empty {
+              <p>No hay información del elenco.</p>
+            }
+          </div>
+        } @placeholder {
+          <div class="cast-placeholder"><p>Haz scroll para ver el elenco...</p></div>
+        } @loading {
+          <div class="defer-spinner">Cargando elenco...</div>
+        }
+      </section>
 
       <button class="btn-premium back-btn" onclick="history.back()">Volver</button>
     </div>

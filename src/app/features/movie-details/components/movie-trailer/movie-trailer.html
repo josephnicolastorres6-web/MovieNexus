@@ -1,0 +1,17 @@
+@if (trailerKey()) {
+  <div class="trailer-wrapper">
+    <iframe 
+      [src]="'https://www.youtube.com/embed/' + trailerKey() | safe" 
+      title="Trailer Oficial" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen 
+      class="trailer-iframe">
+    </iframe>
+  </div>
+} @else {
+  <div class="no-trailer">
+    <span class="no-trailer-icon">🎦</span>
+    <p>No hay tráiler disponible para esta película.</p>
+  </div>
+}
