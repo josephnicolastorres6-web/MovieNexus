@@ -12,5 +12,9 @@ export const routes: Routes = [
   {
     path: 'favorites',
     loadComponent: () => import('./features/favorites/favorites.component').then(m => m.FavoritesComponent)
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./features/not-found/not-found').then(m => m.NotFoundComponent)
   }
 ];
