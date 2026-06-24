@@ -3,7 +3,7 @@ const fs = require('fs');
 const envConfigFile = `export const environment = {
   production: true,
   baseUrl: 'https://api.themoviedb.org/3',
-  apiKey: '${process.env.API_KEY}',
+  apiKey: '${process.env.API_KEY || ''}',
   imgPath: 'https://image.tmdb.org/t/p'
 };`;
 

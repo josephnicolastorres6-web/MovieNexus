@@ -54,6 +54,20 @@
         }
       </section>
 
+      <section class="movie-comments-container">
+        @defer (on viewport) {
+          <app-movie-comments [movieId]="data.details.id"></app-movie-comments>
+        } @placeholder {
+          <div class="placeholder-box">
+            <p>Desplázate hacia abajo para ver los comentarios...</p>
+          </div>
+        } @loading (minimum 1s) {
+          <div class="loading-spinner">
+            <p>Cargando sección de comentarios...</p>
+          </div>
+        }
+      </section>
+
       <button class="btn-premium back-btn" onclick="history.back()">Volver</button>
     </div>
   </div>

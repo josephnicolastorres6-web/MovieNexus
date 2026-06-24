@@ -1,0 +1,55 @@
+<div class="comments-section">
+  <h3>Comentarios y Calificaciones</h3>
+
+  <form (ngSubmit)="submitComment()" class="comment-form">
+    <div class="form-group">
+      <label for="author">Nombre</label>
+      <input type="text" id="author" name="author" [(ngModel)]="newComment.author" required placeholder="Tu nombre" />
+    </div>
+
+    <div class="form-group">
+      <label>Calificación</label>
+      <div class="stars">
+        @for (star of stars; track star) {
+          <span 
+            class="star" 
+            [class.active]="star <= (newComment.rating || 0)"
+            (click)="setRating(star)"
+          >★</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="text">Comentario</label>
+      <textarea id="text" name="text" [(ngModel)]="newComment.text" required placeholder="¿Qué te pareció la película?" rows="3"></textarea>
+    </div>
+
+    <button type="submit" [disabled]="!newComment.author || !newComment.text || !newComment.rating">Enviar Comentario</button>
+  </form>
+
+  <div class="comments-list">
+    @if (isLoading) {
+      <p class="loading">Cargando comentarios...</p>
+    } @else {
+      @for (comment of comments; track comment.id) {
+        <div class="comment-card">
+          <div class="comment-header">
+            <strong>{{ comment.author }}</strong>
+            <span class="comment-rating">
+              @for (star of stars; track star) {
+                <span class="star" [class.active]="star <= comment.rating">★</span>
+              }
+            </span>
+          </div>
+          <p class="comment-text">{{ comment.text }}</p>
+          @if (comment.createdAt) {
+            <small class="comment-date">{{ comment.createdAt | date:'mediumDate' }}</small>
+          }
+        </div>
+      } @empty {
+        <p class="empty-state">No hay comentarios aún. ¡Sé el primero en opinar!</p>
+      }
+    }
+  </div>
+</div>

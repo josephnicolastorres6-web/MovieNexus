@@ -5,7 +5,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let errorMessage = 'Ha ocurrido un error inesperado.';
-      if (error.error instanceof ErrorEvent) {
+      if (typeof ErrorEvent !== 'undefined' && error.error instanceof ErrorEvent) {
         errorMessage = `Error de red: ${error.error.message}`;
       } else {
         errorMessage = `Error ${error.status}: ${error.message}`;
