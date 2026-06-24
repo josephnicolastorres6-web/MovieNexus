@@ -33,7 +33,7 @@ El arreglo "suggestedMovies" debe contener los nombres exactos de las películas
 Responde de manera entusiasta y amigable.`;
 
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash",
+      model: "gemini-3.1-flash-lite",
       systemInstruction
     });
     const { history, message } = req.body;
