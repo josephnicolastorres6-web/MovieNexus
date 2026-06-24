@@ -17,10 +17,6 @@ module.exports = async function (req, res) {
 
   try {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-    const { history, message } = req.body;
-
     const systemInstruction = `Eres Nexus AI, un asistente experto cinéfilo y crítico de cine en la plataforma MovieNexus.
 Tus respuestas deben ser estructuradas en formato JSON estricto.
 Estructura del JSON:
@@ -31,9 +27,15 @@ Estructura del JSON:
 El arreglo "suggestedMovies" debe contener los nombres exactos de las películas mencionadas o recomendadas en tu respuesta, máximo 3 películas. Si no hay recomendaciones, devuelve un arreglo vacío [].
 Responde de manera entusiasta y amigable.`;
 
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      systemInstruction
+    });
+
+    const { history, message } = req.body;
+
     const chat = model.startChat({
       history: history || [],
-      systemInstruction,
       generationConfig: {
         responseMimeType: "application/json",
       },
@@ -47,6 +49,6 @@ Responde de manera entusiasta y amigable.`;
     return res.status(200).json(parsed);
   } catch (error) {
     console.error('Gemini API Error:', error);
-    return res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
