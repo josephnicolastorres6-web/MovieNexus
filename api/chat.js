@@ -45,7 +45,10 @@ Responde de manera entusiasta y amigable.`;
     const response = await result.response;
     const text = response.text();
     
-    const parsed = JSON.parse(text);
+    // Gemini a veces devuelve el JSON envuelto en bloques de markdown
+    const cleanText = text.replace(/```json\n?|```/g, '').trim();
+    
+    const parsed = JSON.parse(cleanText);
     return res.status(200).json(parsed);
   } catch (error) {
     console.error('Gemini API Error:', error);
