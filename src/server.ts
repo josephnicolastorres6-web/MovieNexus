@@ -12,17 +12,50 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+import 'dotenv/config'; // Cargar variables de entorno del archivo .env
+
+
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+app.use(express.json());
+
+app.post('/api/chat', async (req, res) => {
+  try {
+    const genAI = new GoogleGenerativeAI(process.env['GEMINI_API_KEY'] || '');
+    const systemInstruction = `Eres Nexus AI, un asistente experto cinéfilo y crítico de cine en la plataforma MovieNexus.
+Tus respuestas deben ser estructuradas en formato JSON estricto.
+Estructura del JSON:
+{
+  "text": "Tu respuesta enriquecida en formato Markdown aquí (usa negritas, listas, cursivas). No uses HTML.",
+  "suggestedMovies": ["Título Exacto Película 1", "Título Exacto Película 2"]
+}
+El arreglo "suggestedMovies" debe contener los nombres exactos de las películas mencionadas o recomendadas en tu respuesta, máximo 3 películas. Si no hay recomendaciones, devuelve un arreglo vacío [].
+Responde de manera entusiasta y amigable.`;
+
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      systemInstruction
+    });
+    const { history, message } = req.body;
+
+    const chat = model.startChat({
+      history: history || [],
+      generationConfig: {
+        responseMimeType: "application/json",
+      },
+    });
+
+    const result = await chat.sendMessage(message);
+    const response = await result.response;
+    const text = response.text();
+    
+    const cleanText = text.replace(/```json\n?|```/g, '').trim();
+    return res.status(200).json(JSON.parse(cleanText));
+  } catch (error: any) {
+    console.error('Gemini API Error:', error);
+    return res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
+});
 
 /**
  * Serve static files from /browser
