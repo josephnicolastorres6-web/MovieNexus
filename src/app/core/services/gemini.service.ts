@@ -37,10 +37,23 @@ export class GeminiService {
     try {
       // Llamada al endpoint backend
       // Formatear historial para Gemini (requiere role y parts)
-      const geminiHistory = history.map(msg => ({
-        role: msg.role,
-        parts: msg.parts
-      }));
+      const geminiHistory = history.map(msg => {
+        if (msg.role === 'model') {
+          return {
+            role: msg.role,
+            parts: [{ 
+              text: JSON.stringify({
+                text: msg.parts[0].text,
+                suggestedMovies: msg.suggestedMovies ? msg.suggestedMovies.map(m => m.title) : []
+              }) 
+            }]
+          };
+        }
+        return {
+          role: msg.role,
+          parts: msg.parts
+        };
+      });
 
       this.http.post<GeminiResponse>('/api/chat', { 
         history: geminiHistory,
