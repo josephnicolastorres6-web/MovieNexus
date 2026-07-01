@@ -65,9 +65,15 @@ export class GeminiService {
         error: (err) => {
           console.error('❌ ERROR DETALLADO DE CONEXIÓN CON VERCEL/GEMINI:', err);
           console.error('Status:', err.status, 'Message:', err.message);
+          
+          let errorMsg = 'Lo siento, hubo un error al conectar con mis circuitos cinéfilos. Intenta nuevamente más tarde.';
+          if (err.error && err.error.error && err.error.error.includes('GEMINI_API_KEY')) {
+            errorMsg = `⚠️ Error Crítico: ${err.error.error} Por favor, ve a la configuración de Vercel y añade la variable de entorno. Luego haz un "Redeploy".`;
+          }
+
           this.chatHistory.update(current => [...current, { 
             role: 'model', 
-            parts: [{ text: 'Lo siento, hubo un error al conectar con mis circuitos cinéfilos. Intenta nuevamente más tarde.' }] 
+            parts: [{ text: errorMsg }] 
           }]);
           this.isLoading.set(false);
         }

@@ -21,7 +21,11 @@ app.use(express.json());
 
 app.post('/api/chat', async (req, res) => {
   try {
-    const genAI = new GoogleGenerativeAI(process.env['GEMINI_API_KEY'] || '');
+    const apiKey = process.env['GEMINI_API_KEY'] || '';
+    if (!apiKey) {
+      return res.status(500).json({ error: 'Falta la variable de entorno GEMINI_API_KEY en el servidor (Vercel).' });
+    }
+    const genAI = new GoogleGenerativeAI(apiKey);
     const systemInstruction = `Eres Nexus AI, un asistente experto cinéfilo y crítico de cine en la plataforma MovieNexus.
 IMPORTANTE: Solo puedes responder preguntas relacionadas con películas, cine, series, actores o directores. Si el usuario te hace preguntas sobre otros temas (como matemáticas, programación, política, etc.), debes negarte a responder de forma amable y entusiasta, explicando que tu programación solo te permite hablar del séptimo arte y redirigiendo la conversación hacia el cine.
 Tus respuestas deben ser estructuradas en formato JSON estricto.
