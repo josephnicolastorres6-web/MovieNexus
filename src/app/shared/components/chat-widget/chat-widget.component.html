@@ -58,6 +58,9 @@
       </div>
 
       <div class="chat-input-area">
+        <button class="mic-btn" [class.recording]="isRecording" (click)="toggleDictation()" [disabled]="geminiService.isLoading()" title="Dictar por voz">
+          🎙️
+        </button>
         <input 
           type="text" 
           [(ngModel)]="userInput" 
@@ -65,7 +68,7 @@
           placeholder="Pregúntame sobre películas..."
           [disabled]="geminiService.isLoading()"
         />
-        <button (click)="sendMessage()" [disabled]="!userInput.trim() || geminiService.isLoading()">
+        <button class="send-btn" (click)="sendMessage()" [disabled]="!userInput.trim() || geminiService.isLoading()">
           Enviar
         </button>
       </div>

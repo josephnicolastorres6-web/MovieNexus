@@ -194,7 +194,7 @@
 }
 .chat-input-area input:focus { border-color: #e50914; }
 
-.chat-input-area button {
+.chat-input-area .send-btn {
   background: #e50914;
   color: white;
   border: none;
@@ -204,4 +204,37 @@
   cursor: pointer;
   font-weight: bold;
 }
-.chat-input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
+.chat-input-area .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Mic Button */
+.mic-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mic-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.mic-btn.recording {
+  background: rgba(229, 9, 20, 0.2);
+  border-color: #e50914;
+  animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+}

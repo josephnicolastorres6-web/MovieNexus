@@ -15,3 +15,23 @@ export interface MovieResponse {
   page: number;
   total_pages: number;
 }
+
+export interface WatchProvider {
+  provider_id: number;
+  provider_name: string;
+  logo_path: string;
+}
+
+export interface CountryProviders {
+  link: string;
+  flatrate?: WatchProvider[];
+  rent?: WatchProvider[];
+  buy?: WatchProvider[];
+}
+
+export interface WatchProvidersResponse {
+  id: number;
+  results: {
+    [countryCode: string]: CountryProviders;
+  };
+}

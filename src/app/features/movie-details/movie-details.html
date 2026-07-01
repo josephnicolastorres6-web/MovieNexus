@@ -24,6 +24,57 @@
 
       <p class="overview">{{ data.details.overview }}</p>
       
+      <section class="providers-section">
+        <h2>Dónde ver ({{userRegion}})</h2>
+        @if (data.providers.results[userRegion]) {
+          <div class="providers-container">
+            
+            @if (data.providers.results[userRegion].flatrate) {
+              <div class="provider-group">
+                <h3>Suscripción</h3>
+                <div class="provider-list">
+                  @for (provider of data.providers.results[userRegion].flatrate; track provider.provider_id) {
+                    <div class="provider-logo" [title]="provider.provider_name">
+                      <img [src]="'https://image.tmdb.org/t/p/w200' + provider.logo_path" [alt]="provider.provider_name">
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+
+            @if (data.providers.results[userRegion].rent) {
+              <div class="provider-group">
+                <h3>Rentar</h3>
+                <div class="provider-list">
+                  @for (provider of data.providers.results[userRegion].rent; track provider.provider_id) {
+                    <div class="provider-logo" [title]="provider.provider_name">
+                      <img [src]="'https://image.tmdb.org/t/p/w200' + provider.logo_path" [alt]="provider.provider_name">
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+
+            @if (data.providers.results[userRegion].buy) {
+              <div class="provider-group">
+                <h3>Comprar</h3>
+                <div class="provider-list">
+                  @for (provider of data.providers.results[userRegion].buy; track provider.provider_id) {
+                    <div class="provider-logo" [title]="provider.provider_name">
+                      <img [src]="'https://image.tmdb.org/t/p/w200' + provider.logo_path" [alt]="provider.provider_name">
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="providers-container empty">
+            <p style="color: #aaa; margin: 0;">No hay información de streaming disponible para tu región ({{userRegion}}).</p>
+          </div>
+        }
+      </section>
+
       <section class="trailer-section">
         <h2>Tráiler Oficial</h2>
         @defer (on viewport) {
